@@ -39,6 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+CUSTOM_APPS = [
+    'api',
+]
+
+THIRD_PARTY_APPS = [
+    'rest_framework',
+]
+
+INSTALLED_APPS += CUSTOM_APPS
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -79,6 +90,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
+
 
 
 # Password validation
