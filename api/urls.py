@@ -1,13 +1,17 @@
-from django.urls import path, include
-from rest_framework import routers
-
-from api.views import ProfileViewSet, ServiceViewSet, CategoryViewSet
-
-router = routers.DefaultRouter()
-router.register(r'profile', ProfileViewSet)
-router.register(r'service', ServiceViewSet)
-router.register(r'category', CategoryViewSet)
+from django.urls import path
+from api.views import *
 
 urlpatterns = [
-    path('', include(router.urls)),
+    # User
+    path('signup/', signup, name='signup'),
+    path('login/', login, name='login'),
+    path("user_info/", user_info, name="user_info"),
+    path("change_password/", change_password, name="change_password"),
+
+    # Service
+    path("service/", service, name="service"),
+
+    # Category
+    path("category/", category, name="category"),
+
 ]
