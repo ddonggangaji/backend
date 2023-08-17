@@ -48,6 +48,18 @@ def login(request):
                      'access_token': str(refresh.access_token), }, status=status.HTTP_200_OK)
 
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def id_check(request):
+    user_name = request.data.get('user_name')
+
+    try:
+        user = User.objects.get(user_name=user_name)
+        return Response({'message': '이미 존재하는 아이디입니다.'}, status=status.HTTP_401_UNAUTHORIZED)
+    except Exception as e:
+        return Response({'message': '사용 가능한 아이디입니다.'}, status=status.HTTP_200_OK)
+
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def user_info(request):

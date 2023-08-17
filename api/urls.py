@@ -5,6 +5,7 @@ urlpatterns = [
     # User
     path('signup/', signup, name='signup'),
     path('login/', login, name='login'),
+    path('id_check/', id_check, name='id_check'),
     path("user_info/", user_info, name="user_info"),
     path("change_password/", change_password, name="change_password"),
 
