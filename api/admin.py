@@ -12,6 +12,6 @@ class ServiceAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Category)
+@admin.register(UserReview)
 class CategoryAdmin(admin.ModelAdmin):
     pass

@@ -1,18 +1,21 @@
-from django.urls import path
+from django.urls import path, include
 from api.views import *
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+
+router.register('user_info', UserinfoViewSet, basename='user_info')
+router.register('service', ServiceViewSet, basename='service')
+router.register('user_review', UserReviewViewSet, basename='user_review')
+
 
 urlpatterns = [
     # User
+    path('', include(router.urls)),
     path('signup/', signup, name='signup'),
     path('login/', login, name='login'),
     path('id_check/', id_check, name='id_check'),
-    path("user_info/", user_info, name="user_info"),
     path("change_password/", change_password, name="change_password"),
-
-    # Service
-    path("service/", service, name="service"),
-
-    # Category
-    path("category/", category, name="category"),
+    # path("user_img/", user_img, name="user_img"),
 
 ]

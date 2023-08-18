@@ -38,19 +38,17 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('helped', 'helped'),
     )
 
-    user_name = models.CharField(max_length=150, unique=True, blank=True)
-    password = models.CharField(max_length=150, blank=True)
+    user_name = models.CharField(max_length=150, unique=True)
+    password = models.CharField(max_length=150)
     nick_name = models.CharField(max_length=10)
     phone_number = models.CharField(max_length=100)
+
+    img = models.ImageField(upload_to='user_img', null=True, blank=True)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='helper')
 
-
-
     start_date = models.DateTimeField(default=timezone.now)
-
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'user_name'
@@ -60,6 +58,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.user_name
 
 
+class UserReview(models.Model):
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    score = models.IntegerField()
+    review = models.TextField()
+
+    def __str__(self):
+        return self.user.user_name
+
+
 class Service(models.Model):
     STATUS_CHOICES = (
         ('wait', 'wait'),
@@ -67,24 +74,24 @@ class Service(models.Model):
         ('success', 'success'),
     )
 
-    category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    CATEGORY_CHOICES = (
+        ('public_service', 'public_service'),
+        ('phone', 'phone'),
+        ('computer', 'computer'),
+        ('print', 'print'),
+    )
+
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
+
     title = models.CharField(max_length=100)
+    voice_file = models.FileField(upload_to='voice_file', null=True, blank=True)
     context = models.TextField()
 
     helper_phone_number = models.CharField(max_length=15, null=True, blank=True)
     helped_phone_number = models.CharField(max_length=15, null=True, blank=True)
 
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='wait')
-    create_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.title
-
-
-class Category(models.Model):
-    title = models.CharField(max_length=100)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 

@@ -24,7 +24,7 @@ class SignupSerializer(serializers.ModelSerializer):
 class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["pk", "user_name", "phone_number", "nick_name", "role"]
+        fields = ["pk", "user_name", "img", "phone_number", "nick_name", "role"]
 
 
 class ServiceSerializer(serializers.ModelSerializer):
@@ -33,7 +33,7 @@ class ServiceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class CategorySerializer(serializers.ModelSerializer):
+class UserReviewSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
+        model = UserReview
         fields = '__all__'
