@@ -60,7 +60,7 @@ def id_check(request):
         serializer = UserInfoSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
-        return Response({'message': '해당 유저가 존재하지 않습니다.'}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response({'message': '해당 유저가 존재하지 않습니다.'}, status=status.HTTP_200_OK)
 
 
 class UserinfoViewSet(viewsets.ModelViewSet):
@@ -85,7 +85,7 @@ def change_password(request):
             user.save()
             return Response({'message': '비밀번호 변경이 완료되었습니다.'}, status=status.HTTP_200_OK)
     except Exception as e:
-        return Response({'message': '비밀번호가 서로 같지 않습니다.'}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response({'message': '비밀번호가 서로 같지 않습니다.'}, status=status.HTTP_200_OK)
 
 
 class ServiceViewSet(viewsets.ModelViewSet):
@@ -101,4 +101,4 @@ class UserReviewViewSet(viewsets.ModelViewSet):
     serializer_class = UserReviewSerializer
     permission_classes([AllowAny])
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['user', 'service', 'review', 'score']
+    filterset_fields = ['user', 'review', 'score']

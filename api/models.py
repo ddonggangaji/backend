@@ -38,6 +38,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('helped', 'helped'),
     )
 
+    # 필요한 추가 컬럼
     user_name = models.CharField(max_length=150, unique=True)
     password = models.CharField(max_length=150)
     nick_name = models.CharField(max_length=10)
@@ -46,11 +47,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     img = models.ImageField(upload_to='user_img', null=True, blank=True)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='helper')
 
+    # 건들면 안되는거
     start_date = models.DateTimeField(default=timezone.now)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     objects = CustomAccountManager()
 
+    # 유동적으로
     USERNAME_FIELD = 'user_name'
     REQUIRED_FIELDS = ['role']
 
